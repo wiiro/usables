@@ -1,0 +1,25 @@
+{
+  "banco": "nubank",
+  "totalFatura": 41349,
+  "nTransacoes": 8,
+  "somaTransacoes": 41349,
+  "bateu": true,
+  "dataFechamento": "2027-01-15",
+  "dataVencimento": "2027-01-22",
+  "parcelas": [
+    {
+      "descricao": "Magazine Luiza",
+      "atual": 3,
+      "total": 10
+    }
+  ],
+  "internacional": {
+    "moeda": "USD",
+    "valorOriginal": 1000,
+    "iof": 189
+  },
+  "datas": {
+    "Mercado Bom Preço": "2026-12-17",
+    "Spotify": "2027-01-02"
+  }
+}

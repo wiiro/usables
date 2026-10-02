@@ -1,0 +1,27 @@
+{
+  "banco": "itau",
+  "totalFatura": 110884,
+  "nTransacoes": 10,
+  "somaTransacoes": 110884,
+  "bateu": true,
+  "dataFechamento": "2026-10-03",
+  "dataVencimento": "2026-10-10",
+  "futuras": 4,
+  "parcelas": [
+    {
+      "descricao": "MERCADO LIVRE",
+      "atual": 3,
+      "total": 10
+    },
+    {
+      "descricao": "CASAS BAHIA",
+      "atual": 1,
+      "total": 6
+    }
+  ],
+  "internacional": {
+    "moeda": "USD",
+    "valorOriginal": 1000,
+    "iof": 189
+  }
+}

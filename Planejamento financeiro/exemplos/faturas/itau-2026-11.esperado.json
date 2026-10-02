@@ -1,0 +1,10 @@
+{
+  "banco": "itau",
+  "totalFatura": 75130,
+  "nTransacoes": 6,
+  "somaTransacoes": 75130,
+  "bateu": true,
+  "dataFechamento": "2026-11-03",
+  "dataVencimento": "2026-11-10",
+  "futuras": 2
+}

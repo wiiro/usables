@@ -1,0 +1,17 @@
+Nu Pagamentos S.A. - Nubank
+Olá, Maria. Esta é a sua fatura de janeiro.
+Fatura fecha em 15 JAN
+Data de vencimento: 22 JAN 2027
+Total a pagar  R$ 413,49
+TRANSAÇÕES DE 16 DEZ A 15 JAN
+17 DEZ  Mercado Bom Preço  R$ 210,30
+20 DEZ  Magazine Luiza - Parcela 3/10  R$ 89,90
+28 DEZ  Uber *Trip  R$ 18,40
+02 JAN  Spotify  R$ 21,90
+05 JAN  Amazon US  R$ 54,00
+USD 10,00 · Cotação R$ 5,40
+IOF de R$ 1,89
+06 JAN  IOF de compra internacional  R$ 3,00
+08 JAN  •••• 4321 Padaria São João  R$ 32,50
+10 JAN  Estorno Uber  −R$ 18,40
+12 JAN  Pagamento recebido  −R$ 1.500,00

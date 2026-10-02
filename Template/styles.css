@@ -1,0 +1,570 @@
+/* ==========================================================================
+   Guia de Tarefas Interativo — styles.css
+   Tokens portados 1:1 do design system embutido no .html original
+   (SRMDiamondDesignSystem). Ver Arch/design-system-tokens.md para a lista
+   do que este documento efetivamente usa.
+   ========================================================================== */
+
+/* ---------- Reset mínimo ---------- */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { min-height: 100vh; }
+button { font: inherit; }
+input, textarea, select { font: inherit; color: inherit; }
+
+/* ---------- Tokens: primitivos ---------- */
+:root {
+  --neutral-0:   #ffffff;
+  --neutral-50:  #f9fafb;
+  --neutral-100: #f0f2f6;
+  --neutral-200: #e5e7eb;
+  --neutral-300: #d1d5db;
+  --neutral-400: #9ca3af;
+  --neutral-500: #6b7280;
+  --neutral-700: #374151;
+  --neutral-900: #111827;
+
+  --success-50:  #d1fae5;
+  --success-500: #059669;
+  --warning-50:  #fef3c7;
+  --warning-500: #b25b00;
+  --error-50:    #fee2e2;
+  --error-500:   #d30000;
+  --info-50:     #dbeafe;
+  --info-500:    #2758b5;
+
+  /* ---------- Tokens: marca ---------- */
+  --brand-primary:       #1d3f80;
+  --brand-primary-hover: #163268;
+  --brand-primary-light: #dce8fa;
+  --brand-accent:        #ff8200; /* nunca usar como cor de texto sobre fundo claro (contraste ~2.5:1) */
+  --brand-accent-strong: #cc6600;
+
+  /* ---------- Tokens: semânticos (texto / superfície / borda) ---------- */
+  --text-primary:   #0c0c0c;
+  --text-secondary: #6b7280;
+  --text-on-brand:  #ffffff;
+
+  --surface-default: #ffffff;
+  --surface-subtle:  #f9fafb;
+  --surface-canvas:  #f8f9fb;
+
+  --border-default: #e5e7eb;
+  --border-medium:  #d1d5db;
+
+  /* ---------- Tokens: feedback (component-facing) ---------- */
+  --feedback-success:      #059669;
+  --feedback-success-bg:   #d1fae5;
+  --feedback-warning:      #b25b00;
+  --feedback-warning-bg:   #fef3c7;
+  --feedback-error:        #d30000;
+  --feedback-error-bg:     #fee2e2;
+  --feedback-info:         #2758b5;
+  --feedback-info-bg:      #dbeafe;
+
+  /* ---------- Tokens: cores de fase (TAB_DOTS) ---------- */
+  --dot-blue:    var(--brand-primary);
+  --dot-violet:  #7c3aed;
+  --dot-teal:    #0d6e8a;
+  --dot-emerald: #1a6b4a;
+  --dot-amber:   #b45309;
+  --dot-red:     var(--feedback-error);
+  --dot-gray:    var(--neutral-500);
+
+  /* ---------- Tokens: GTI (aliases usados no documento) ---------- */
+  --gti-canvas:  var(--surface-canvas);
+  --gti-surface: var(--surface-default);
+  --gti-surface2: var(--surface-subtle);
+  --gti-border:  var(--border-default);
+  --gti-text:    var(--text-primary);
+  --gti-text2:   var(--text-secondary);
+  --gti-text3:   var(--neutral-400);
+
+  /* ---------- Tipografia ---------- */
+  /* Fontes locais/sistema por padrão (mantém o projeto 100% offline).
+     Pra usar Inter de verdade, adicione um <link> do Google Fonts no index.html
+     e troque a linha abaixo por: 'Inter', -apple-system, ... */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --text-11: 11px; --text-12: 12px; --text-13: 13px; --text-14: 14px;
+  --text-16: 16px; --text-19: 19px; --text-24: 24px;
+
+  --weight-medium:   500;
+  --weight-semibold: 600;
+  --weight-bold:     700;
+
+  --tracking-label: 0.5px;
+
+  /* ---------- Espaçamento / raio / forma ---------- */
+  --padding-card: 24px;
+  --gap-card:     16px;
+  --gap-card-lg:  24px;
+  --gap-section:  32px;
+
+  --radius-sm:     4px;
+  --radius-input:  8px;
+  --radius-card:   20px;
+  --radius-button: 6px;
+  --radius-full:   9999px;
+
+  --app-header-height: 56px;
+
+  /* ---------- Movimento ---------- */
+  --duration-normal: 150ms;
+  --easing-default:  ease;
+}
+
+/* Tema escuro — mecanismo portado do original (não usado hoje, já que
+   state.theme é sempre 'light', mas mantém o gancho pra ativar depois). */
+[data-gti-theme="dark"] {
+  --gti-canvas: #0a0e18; --gti-surface: #121a2c; --gti-surface2: #1a2438;
+  --gti-border: #263049; --gti-text: #f1f4fa; --gti-text2: #b6c0d6; --gti-text3: #7481a0;
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: var(--text-13);
+}
+
+/* ==========================================================================
+   Shell da página
+   ========================================================================== */
+
+.gti-shell {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: var(--gti-canvas);
+  color: var(--gti-text2);
+}
+
+.gti-header {
+  height: var(--app-header-height);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 0 16px;
+  border-bottom: 1px solid var(--gti-border);
+  background: var(--gti-surface);
+  flex-wrap: wrap;
+}
+
+.gti-header-title {
+  font-size: var(--text-19);
+  font-weight: var(--weight-bold);
+  color: var(--gti-text);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+}
+.gti-header-title:hover { background: var(--gti-surface2); }
+
+.gti-header-subtitle {
+  font-size: var(--text-13);
+  color: var(--gti-text3);
+  cursor: pointer;
+  border: none;
+  background: none;
+  padding: 4px 6px;
+  border-radius: var(--radius-sm);
+}
+.gti-header-subtitle:hover { background: var(--gti-surface2); }
+
+.gti-header-exports {
+  margin-left: auto;
+  display: flex;
+  gap: 8px;
+}
+
+.gti-body {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+/* ---------- Sidebar ---------- */
+
+.gti-sidebar {
+  position: relative;
+  flex-shrink: 0;
+  overflow: hidden;
+  background: var(--gti-surface);
+  border-right: 1px solid var(--gti-border);
+  transition: width var(--duration-normal) var(--easing-default);
+}
+.gti-sidebar.is-resizing { transition: none; }
+
+.gti-sidebar-nav {
+  height: 100%;
+  overflow-y: auto;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+}
+
+.gti-sidebar-resize-handle {
+  position: absolute;
+  top: 0; right: 0;
+  width: 8px; height: 100%;
+  cursor: col-resize;
+  background: transparent;
+  z-index: 5;
+}
+
+.gti-nav-toggle {
+  border: none;
+  background: none;
+  color: var(--gti-text2);
+  cursor: pointer;
+  font-size: 16px;
+  width: 32px; height: 32px;
+  border-radius: var(--radius-button);
+}
+.gti-nav-toggle:hover { background: var(--gti-surface2); }
+
+.gti-nav-section-label {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-label);
+  color: var(--gti-text3);
+  padding: 14px 10px 4px;
+}
+
+.gti-nav-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--weight-medium);
+  color: var(--gti-text2);
+  background: none;
+  border: none;
+  border-left: 3px solid transparent;
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  padding: 8px 10px;
+  cursor: pointer;
+  text-align: left;
+}
+.gti-nav-item.is-active {
+  font-weight: var(--weight-semibold);
+  color: var(--brand-primary);
+  background: var(--gti-surface2);
+  border-left-color: var(--brand-primary);
+}
+
+.gti-nav-dot {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 5px;
+}
+
+.gti-nav-label {
+  flex: 1;
+  min-width: 0;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  overflow-wrap: break-word;
+  line-height: 1.35;
+}
+
+.gti-nav-delete {
+  opacity: 0.45;
+  font-size: 13px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  cursor: pointer;
+  background: none;
+  border: none;
+  color: inherit;
+}
+.gti-nav-delete:hover { opacity: 0.9; }
+
+.gti-nav-add {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  font-family: var(--font-sans);
+  font-size: 13px;
+  color: var(--gti-text3);
+  background: none;
+  border: 1px dashed var(--gti-border);
+  border-radius: var(--radius-input);
+  padding: 8px 10px;
+  cursor: pointer;
+  margin-top: 4px;
+  box-sizing: border-box;
+}
+
+/* ---------- Conteúdo ---------- */
+
+.gti-content {
+  flex: 1;
+  overflow-y: auto;
+  padding: 32px;
+}
+
+.gti-page-title {
+  font-size: var(--text-24);
+  font-weight: var(--weight-bold);
+  color: var(--gti-text);
+  margin-bottom: var(--gap-section);
+}
+
+/* ==========================================================================
+   Campo editável — padrão "lápis" (view ↔ edit)
+   ========================================================================== */
+
+.gti-field-view {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  cursor: pointer;
+  padding: 1px 0;
+}
+.gti-field-view .gti-field-pencil {
+  flex-shrink: 0;
+  font-size: 12px;
+  color: var(--gti-text3);
+  opacity: 0.55;
+}
+.gti-field-view.is-empty .gti-field-text {
+  font-style: italic;
+  color: var(--gti-text3);
+}
+
+.gti-field-input {
+  width: 100%;
+  border: 1px solid var(--brand-primary);
+  border-radius: var(--radius-input);
+  background: none;
+  outline: none;
+  font-family: var(--font-sans);
+  color: var(--gti-text);
+  padding: 1px 6px;
+  box-sizing: border-box;
+}
+textarea.gti-field-input {
+  resize: vertical;
+  overflow: auto;
+  line-height: 1.5;
+}
+
+/* ---------- Campos sempre-editáveis (sem toggle) ---------- */
+
+.gti-inline-input {
+  font-family: var(--font-sans);
+  font-size: var(--text-12);
+  padding: 5px 10px;
+  border: 1px dashed var(--gti-border);
+  border-radius: var(--radius-full);
+  background: var(--gti-surface2);
+  color: var(--gti-text2);
+  outline: none;
+  box-sizing: border-box;
+}
+
+.gti-draft-input {
+  flex: 1;
+  font-family: var(--font-sans);
+  font-size: var(--text-13);
+  padding: 8px 10px;
+  border: 1px dashed var(--gti-border);
+  border-radius: var(--radius-input);
+  background: none;
+  color: var(--gti-text);
+  outline: none;
+  box-sizing: border-box;
+}
+
+/* ==========================================================================
+   Checklist de itens
+   ========================================================================== */
+
+.gti-item-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 1px solid var(--gti-border);
+  border-radius: var(--radius-input);
+  margin-bottom: 6px;
+  background: var(--gti-surface);
+}
+.gti-item-row.is-done   { background: rgba(5,150,105,0.05); border-color: rgba(5,150,105,0.2); }
+.gti-item-row.is-blocked{ background: rgba(211,0,0,0.05);   border-color: rgba(211,0,0,0.25); }
+
+.gti-checkbox {
+  width: 22px; height: 22px;
+  flex-shrink: 0;
+  margin-top: 1px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: 2px solid var(--border-medium);
+  color: transparent;
+}
+.gti-checkbox.is-done   { background: var(--brand-primary); border: none; color: #fff; }
+.gti-checkbox.is-blocked{ background: none; border-color: var(--feedback-error); color: var(--feedback-error); }
+
+.gti-block-btn {
+  font-family: var(--font-sans);
+  font-size: 10.5px;
+  font-weight: var(--weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-radius: var(--radius-sm);
+  padding: 3px 7px;
+  cursor: pointer;
+  flex-shrink: 0;
+  margin-top: 1px;
+  background: none;
+  border: 1px solid var(--gti-border);
+  color: var(--gti-text3);
+}
+.gti-block-btn.is-active { background: var(--feedback-error); color: #fff; border: none; }
+
+.gti-item-delete {
+  border: none; background: none;
+  color: var(--gti-text3);
+  cursor: pointer;
+  font-size: 14px;
+  padding: 0 2px;
+}
+
+/* ==========================================================================
+   Marcador de progresso da etapa (timeline)
+   ========================================================================== */
+
+.gti-marker {
+  width: 40px; height: 40px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+.gti-marker.state-pending { background: var(--gti-surface); color: var(--gti-text3); border: 2px solid var(--border-medium); font-size: 14px; }
+.gti-marker.state-active  { background: var(--gti-surface); color: var(--brand-primary); border: 2px solid var(--brand-primary); font-size: 14px; }
+.gti-marker.state-done    { background: var(--brand-primary); color: #fff; font-size: 15px; }
+.gti-marker.state-blocked { background: var(--feedback-error-bg); color: var(--feedback-error); border: 2px solid var(--feedback-error); font-size: 15px; }
+
+/* ==========================================================================
+   Componentes do design system (portados como classes simples)
+   ========================================================================== */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-sans);
+  font-weight: var(--weight-semibold);
+  border-radius: var(--radius-button);
+  cursor: pointer;
+  border: 1px solid transparent;
+  padding: 10px 18px;
+  font-size: var(--text-13);
+}
+.btn-sm { padding: 6px 12px; font-size: 12.5px; }
+
+.btn-primary   { background: var(--brand-primary); color: #fff; }
+.btn-primary:hover { background: var(--brand-primary-hover); }
+.btn-secondary { background: var(--gti-surface); color: var(--gti-text); border-color: var(--gti-border); }
+.btn-secondary:hover { background: var(--gti-surface2); }
+.btn-ghost     { background: none; color: var(--gti-text2); border-color: var(--gti-border); }
+.btn-ghost:hover { background: var(--gti-surface2); }
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-sans);
+  font-size: 11.5px;
+  font-weight: var(--weight-semibold);
+  padding: 5px 11px;
+  border-radius: var(--radius-full);
+  border: 1px solid var(--gti-border);
+  color: var(--gti-text3);
+}
+.tag-neutral  { background: var(--gti-surface2); color: var(--gti-text2); border-color: var(--gti-border); }
+.tag-success  { background: none; color: var(--feedback-success); border-color: var(--feedback-success); }
+.tag-warning  { background: none; color: var(--feedback-warning); border-color: var(--feedback-warning); }
+.tag-error    { background: none; color: var(--feedback-error);   border-color: var(--feedback-error); }
+.tag-selected { background: var(--surface-subtle); color: var(--brand-primary); border-color: var(--brand-primary); }
+
+.kpi-card {
+  background: var(--gti-surface);
+  border: 1px solid var(--gti-border);
+  border-radius: var(--radius-card);
+  padding: var(--padding-card);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 100px;
+}
+.kpi-card-label { font-size: var(--text-12); color: var(--gti-text3); font-weight: var(--weight-medium); }
+.kpi-card-value { font-size: var(--text-24); font-weight: var(--weight-bold); color: var(--gti-text); }
+.kpi-card-hint  { font-size: var(--text-12); color: var(--gti-text3); }
+.kpi-card.variant-success .kpi-card-value { color: var(--feedback-success); }
+.kpi-card.variant-error   .kpi-card-value { color: var(--feedback-error); }
+
+.callout {
+  border-radius: var(--radius-input);
+  padding: 14px 16px;
+  font-size: var(--text-13);
+  border: 1px solid var(--gti-border);
+  background: var(--gti-surface2);
+  color: var(--gti-text2);
+}
+.callout-info    { background: var(--feedback-info-bg);    color: var(--feedback-info);    border-color: transparent; }
+.callout-warning { background: var(--feedback-warning-bg); color: var(--feedback-warning); border-color: transparent; }
+.callout-error   { background: var(--feedback-error-bg);   color: var(--feedback-error);   border-color: transparent; }
+
+/* ==========================================================================
+   Grids
+   ========================================================================== */
+
+.gti-kpi-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--gap-card-lg);
+  margin-bottom: var(--gap-section);
+}
+
+/* ==========================================================================
+   Responsivo
+   ========================================================================== */
+
+@media (max-width: 720px) {
+  .gti-content { padding: 16px; }
+  .gti-header  { padding: 16px !important; }
+}
+
+/* ==========================================================================
+   Impressão (exportar PDF via window.print())
+   O relatório de impressão é uma seção própria, sempre no DOM, oculta na tela
+   e só visível ao imprimir — não é "a tela atual sem sidebar". Ver render.js
+   (App._buildPrintReport). O shell interativo faz o inverso: some ao imprimir.
+   ========================================================================== */
+
+.gti-print-report { display: none; }
+
+@media print {
+  .gti-shell { display: none !important; }
+  .gti-print-report { display: block !important; }
+}

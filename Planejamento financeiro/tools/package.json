@@ -1,0 +1,19 @@
+{
+  "name": "planejamento-financeiro-tools",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Ferramentas de desenvolvimento (NÃO necessárias para usar o app): copiar libs para vendor/ e gerar exemplos.",
+  "type": "module",
+  "scripts": {
+    "exemplos": "node gerar-exemplos.js"
+  },
+  "dependencies": {
+    "@napi-rs/canvas": "^1.0.10",
+    "@tesseract.js-data/por": "^1.0.0",
+    "echarts": "^6.1.0",
+    "pdfjs-dist": "^6.3.289",
+    "pdfkit": "^0.20.2",
+    "tesseract.js": "^7.0.0",
+    "tesseract.js-core": "^7.0.0"
+  }
+}

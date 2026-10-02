@@ -1,0 +1,10 @@
+{
+  "name": "planejamento-financeiro",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Planejamento financeiro pessoal/familiar — 100% local",
+  "type": "module",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\""
+  }
+}

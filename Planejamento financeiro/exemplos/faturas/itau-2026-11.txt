@@ -1,0 +1,22 @@
+ITAÚ UNIBANCO S.A.
+itaucard Visa Platinum
+Titular: MARIA DE SOUZA SILVA  CPF 123.456.789-00
+Vencimento: 10/11/2026
+Data de fechamento: 03/11/2026
+Total desta fatura  R$ 751,30
+Pagamentos e créditos
+10/10  PAGAMENTO EFETUADO  -1.108,84
+Lançamentos: compras e saques
+MARIA DE SOUZA SILVA - cartão final 1234
+03/10  PADARIA SAO JOAO  38,40
+10/10  SUPERMERCADO ESTRELA  276,10
+15/10  MERCADO LIVRE 04/10  150,00
+22/10  UBER *TRIP  31,00
+30/10  CASAS BAHIA 02/06  199,90
+Total dos lançamentos no cartão final 1234  R$ 695,40
+JOAO PEDRO SILVA (adicional) - cartão final 5678
+05/10  NETFLIX.COM  55,90
+Total dos lançamentos no cartão final 5678  R$ 55,90
+Compras parceladas - próximas faturas
+MERCADO LIVRE 05/10  150,00
+CASAS BAHIA 03/06  199,90

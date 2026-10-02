@@ -1,0 +1,57 @@
+# ---------------------------------------------------------------------------
+# Rotinas e Métodos — arquivos que NÃO vão para o repositório
+# ---------------------------------------------------------------------------
+
+# Dados pessoais -------------------------------------------------------------
+# Backups exportados pelo app contêm todo o conteúdo cadastrado (tarefas,
+# anotações, bloqueios…). Nunca devem ir para o GitHub, mesmo que sejam
+# salvos dentro desta pasta.
+rotinas-e-metodos-backup-*.json
+
+# Dependências e compilação (recriadas com npm install / npm run build) -----
+node_modules/
+dist/
+dist-ssr/
+*.tsbuildinfo
+.vite/
+coverage/
+
+# Variáveis de ambiente e configurações locais ------------------------------
+# O app não usa segredos hoje; fica a proteção para o futuro.
+.env
+.env.*
+!.env.example
+*.local
+
+# Configuração local do Claude Code (preferências da máquina e do navegador
+# de teste) -----------------------------------------------------------------
+.claude/settings.local.json
+.claude/launch.json
+
+# Logs ----------------------------------------------------------------------
+logs/
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Editores -------------------------------------------------------------------
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Sistema operacional ------------------------------------------------------
+# Windows
+Thumbs.db
+ehthumbs.db
+desktop.ini
+$RECYCLE.BIN/
+# macOS
+.DS_Store

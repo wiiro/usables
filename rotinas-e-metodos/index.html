@@ -1,0 +1,28 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rotinas e Métodos</title>
+    <script>
+      // Aplica o tema antes do primeiro desenho, para a tela não piscar clara
+      // no modo escuro. A chave precisa bater com STORAGE_KEY em
+      // src/store/persistence.ts.
+      (function () {
+        var dark = !!(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches);
+        try {
+          var saved = JSON.parse(localStorage.getItem('rotinas_state_v1') || 'null');
+          if (saved && (saved.theme === 'dark' || saved.theme === 'light')) dark = saved.theme === 'dark';
+        } catch (e) {
+          /* armazenamento indisponível ou ilegível: fica o tema do sistema */
+        }
+        document.documentElement.classList.toggle('dark', dark);
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

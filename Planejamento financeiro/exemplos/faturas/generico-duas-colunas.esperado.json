@@ -1,0 +1,9 @@
+{
+  "banco": "outro",
+  "totalFatura": 45670,
+  "nTransacoes": 8,
+  "somaTransacoes": 45670,
+  "bateu": true,
+  "dataFechamento": "2026-11-08",
+  "dataVencimento": "2026-11-15"
+}

@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guia de Tarefas Interativo</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app"><!-- render.js reconstrói todo o conteúdo aqui a cada mudança de estado --></div>
+
+  <!-- Ordem importa: cada arquivo depende do anterior. Sem build step, sem módulos ES —
+       tudo em escopo global simples, do jeito mais fácil de abrir e entender num editor comum. -->
+  <script src="state.js"></script>
+  <script src="logic.js"></script>
+  <script src="render.js"></script>
+  <script src="export.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
