@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { BotaoPreferenciasCookies } from "@/components/privacidade/BannerCookies";
 import { INSTAGRAM_PLACEHOLDER } from "@/lib/placeholders";
 import { IconeInstagram, IconeWhatsapp } from "./Icons";
 
@@ -40,7 +41,8 @@ export function Footer() {
         </div>
       </div>
       <div className="border-t border-tinta/10 px-4 py-5 text-center text-xs text-tinta/60">
-        © {new Date().getFullYear()} ensaio
+        © {new Date().getFullYear()} ensaio ·{" "}
+        <BotaoPreferenciasCookies className="underline underline-offset-4 hover:text-terracota" />
       </div>
       {WHATSAPP ? (
         <a

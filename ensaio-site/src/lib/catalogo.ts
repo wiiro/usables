@@ -25,9 +25,12 @@ export type Transparencia = {
   prazoProducaoDias?: number;
 };
 
+export type VarianteResumo = { id: string; titulo: string; precoCentavos: number };
+
 export type ProdutoDetalhe = ProdutoResumo & {
   descricao: string | null;
   transparencia: Transparencia;
+  variantes: VarianteResumo[];
 };
 
 const CAMPOS = "id,title,handle,description,thumbnail,metadata,*categories,*variants,*variants.calculated_price";
@@ -57,7 +60,7 @@ function corDe(handle: string): string {
 }
 
 /** Menor preço entre as variantes, em centavos inteiros (Medusa devolve unidade principal). */
-function precoEmCentavos(variantes: VarianteApi[] = []): number {
+export function precoEmCentavos(variantes: VarianteApi[] = []): number {
   const valores = variantes
     .map((v) => v.calculated_price?.calculated_amount)
     .filter((n): n is number => typeof n === "number");
@@ -77,6 +80,7 @@ function paraResumo(p: ProdutoApi): ProdutoResumo {
     href: `/loja/${p.handle}`,
     cor: corDe(p.handle),
     thumbnail: p.thumbnail,
+    material: texto(p.metadata?.material),
   };
 }
 
@@ -114,6 +118,11 @@ export async function obterProduto(handle: string): Promise<ProdutoDetalhe | nul
   return {
     ...paraResumo(produto),
     descricao: produto.description,
+    variantes: (produto.variants ?? []).map((v) => ({
+      id: v.id,
+      titulo: v.title,
+      precoCentavos: precoEmCentavos([v]),
+    })),
     transparencia: {
       material: texto(m.material),
       origem: texto(m.origem),
@@ -122,4 +131,15 @@ export async function obterProduto(handle: string): Promise<ProdutoDetalhe | nul
       prazoProducaoDias: typeof m.prazo_producao_dias === "number" ? m.prazo_producao_dias : undefined,
     },
   };
+}
+
+/** Produtos por id (lista de desejos). Ids inexistentes são ignorados. */
+export async function listarProdutosPorIds(ids: string[]): Promise<ProdutoResumo[]> {
+  if (ids.length === 0) return [];
+  const { products } = await medusaGet<{ products: ProdutoApi[] }>(
+    "/store/products",
+    { fields: CAMPOS, region_id: await regiaoId(), id: ids.slice(0, 100), limit: 100 },
+    0,
+  );
+  return products.map(paraResumo);
 }

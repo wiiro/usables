@@ -3,6 +3,7 @@ import { InstagramFeed } from "@/components/home/InstagramFeed";
 import { PillarsGrid } from "@/components/home/PillarsGrid";
 import { ProductStrip } from "@/components/home/ProductStrip";
 import { listarProdutos } from "@/lib/catalogo";
+import { obterConteudoSite, type ConteudoSite } from "@/lib/conteudo";
 import { PILARES, PRODUTOS_PLACEHOLDER, type ProdutoResumo } from "@/lib/placeholders";
 
 export const revalidate = 60;
@@ -18,13 +19,23 @@ async function produtosDaHome(): Promise<ProdutoResumo[]> {
   }
 }
 
+async function conteudoDaHome(): Promise<ConteudoSite> {
+  try {
+    return await obterConteudoSite();
+  } catch (erro) {
+    console.error("[home] falha ao carregar o conteúdo editável, usando o padrão:", erro);
+    return { instagramImagens: [] };
+  }
+}
+
 export default async function Home() {
+  const [produtos, conteudo] = await Promise.all([produtosDaHome(), conteudoDaHome()]);
   return (
     <>
-      <Hero />
-      <ProductStrip produtos={await produtosDaHome()} />
+      <Hero videoSrc={conteudo.heroVideoUrl} posterSrc={conteudo.heroPosterUrl} />
+      <ProductStrip produtos={produtos} />
       <PillarsGrid pilares={PILARES} />
-      <InstagramFeed />
+      <InstagramFeed usuario={conteudo.instagramUsuario} href={conteudo.instagramUrl} imagens={conteudo.instagramImagens} />
     </>
   );
 }

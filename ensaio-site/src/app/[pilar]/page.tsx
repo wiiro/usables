@@ -6,7 +6,7 @@ import { PILARES } from "@/lib/placeholders";
 // "materioteca" tem rota própria (src/app/materioteca).
 export const dynamicParams = false;
 
-const PAGINAS = PILARES.filter((p) => p.slug !== "materioteca");
+const PAGINAS = PILARES.filter((p) => p.slug !== "materioteca" && p.slug !== "manifesto");
 
 type Props = { params: Promise<{ pilar: string }> };
 

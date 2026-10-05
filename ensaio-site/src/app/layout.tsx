@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Space_Mono, Ubuntu_Mono } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { BannerCookies } from "@/components/privacidade/BannerCookies";
+import { DESCRICAO_SITE, NOME_SITE, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
 // Substitutas livres das fontes da marca (Geometry Soft Pro / Telegrama)
@@ -20,8 +22,10 @@ const titulo = Space_Mono({
 });
 
 export const metadata: Metadata = {
-  title: { default: "ensaio", template: "%s | ensaio" },
-  description: "Estúdio de design autoral de biomateriais.",
+  metadataBase: new URL(SITE_URL),
+  title: { default: NOME_SITE, template: `%s | ${NOME_SITE}` },
+  description: DESCRICAO_SITE,
+  openGraph: { type: "website", siteName: NOME_SITE, locale: "pt_BR", description: DESCRICAO_SITE },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -37,6 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <Header />
         <main id="conteudo">{children}</main>
         <Footer />
+        <BannerCookies />
       </body>
     </html>
   );

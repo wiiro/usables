@@ -2,7 +2,8 @@
 
 import Link from "next/link";
 import { useId, useState } from "react";
-import { IconeBusca, IconeConta, IconeFavorito, IconeSacola } from "./Icons";
+import { ContadorSacola } from "./ContadorSacola";
+import { IconeBusca, IconeConta, IconeFavorito } from "./Icons";
 
 const NAV = [
   { href: "/loja", rotulo: "Loja" },
@@ -76,7 +77,7 @@ export function Header() {
         <div className="flex items-center justify-self-end">
           <Link href="/conta" aria-label="Minha conta" className={ICONE}><IconeConta /></Link>
           <Link href="/conta/favoritos" aria-label="Lista de desejos" className={`${ICONE} hidden sm:block`}><IconeFavorito /></Link>
-          <Link href="/carrinho" aria-label="Sacola" className={ICONE}><IconeSacola /></Link>
+          <ContadorSacola className={ICONE} />
         </div>
       </div>
     </header>

@@ -11,6 +11,8 @@ export type ProdutoResumo = {
   href: string;
   cor: string;
   thumbnail?: string | null;
+  /** Slug do material (metadata.material no Medusa), para ligar à Materioteca. */
+  material?: string;
 };
 
 // Fallback usado só quando o backend está fora do ar.

@@ -1,9 +1,14 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AdicionarSacola } from "@/components/shop/AdicionarSacola";
 import { PlaceholderArt } from "@/components/ui/PlaceholderArt";
+import { favoritoAcao } from "@/app/conta/actions";
+import { obterCliente } from "@/lib/conta";
+import { obterMaterial } from "@/lib/conteudo";
 import { obterProduto, type Transparencia } from "@/lib/catalogo";
 import { formatarPreco } from "@/lib/format";
+import { SITE_URL } from "@/lib/site";
 
 type Props = { params: Promise<{ handle: string }> };
 
@@ -25,11 +30,34 @@ export default async function Produto({ params }: Props) {
   const produto = await obterProduto(handle);
   if (!produto) notFound();
 
+  const cliente = await obterCliente().catch(() => undefined);
+  const favorito = cliente?.favoritos.includes(produto.id) ?? false;
   const { transparencia: t } = produto;
+  const materialExiste = t.material ? await obterMaterial(t.material).catch(() => undefined) : undefined;
   const itens = ROTULOS.filter(([chave]) => t[chave]);
+
+  const dadosEstruturados = {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    name: produto.nome,
+    description: produto.descricao ?? undefined,
+    url: `${SITE_URL}/loja/${handle}`,
+    image: produto.thumbnail ?? undefined,
+    offers: {
+      "@type": "Offer",
+      priceCurrency: "BRL",
+      price: (produto.precoCentavos / 100).toFixed(2),
+      availability: "https://schema.org/PreOrder",
+    },
+  };
 
   return (
     <div className="mx-auto grid max-w-[1400px] gap-10 px-4 py-12 md:grid-cols-2 md:px-8">
+      {/* JSON-LD: o "<" é escapado para o conteúdo nunca fechar a tag script. */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(dadosEstruturados).replace(/</g, "\\u003c") }}
+      />
       <div className="aspect-[4/5] w-full overflow-hidden" style={{ background: produto.cor }}>
         {produto.thumbnail ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -59,14 +87,23 @@ export default async function Produto({ params }: Props) {
           </p>
         ) : null}
 
-        {/* Carrinho entra na fase 5. */}
-        <button
-          type="button"
-          disabled
-          className="mt-8 w-full border border-tinta/30 px-5 py-3 uppercase tracking-widest text-tinta/50"
-        >
-          Adicionar à sacola (em breve)
-        </button>
+        <AdicionarSacola variantes={produto.variantes} />
+
+        {cliente ? (
+          <form action={favoritoAcao} className="mt-3">
+            <input type="hidden" name="produto" value={produto.id} />
+            <input type="hidden" name="voltar" value={`/loja/${handle}`} />
+            <button type="submit" aria-pressed={favorito} className="text-sm underline underline-offset-4 hover:text-terracota">
+              {favorito ? "Remover dos favoritos" : "Adicionar aos favoritos"}
+            </button>
+          </form>
+        ) : (
+          <p className="mt-3 text-sm">
+            <Link href={`/conta/entrar?voltar=/loja/${handle}`} className="underline underline-offset-4 hover:text-terracota">
+              Entre para guardar nos favoritos
+            </Link>
+          </p>
+        )}
 
         {itens.length > 0 ? (
           <section aria-label="Transparência" className="mt-10">
@@ -75,7 +112,15 @@ export default async function Produto({ params }: Props) {
               {itens.map(([chave, rotulo]) => (
                 <div key={chave} className="grid grid-cols-[7rem_1fr] gap-4 py-3">
                   <dt className="text-sm uppercase tracking-wider text-tinta/60">{rotulo}</dt>
-                  <dd>{t[chave]}</dd>
+                  <dd>
+                    {chave === "material" && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(t.material ?? "") && materialExiste ? (
+                      <Link href={`/materioteca/${t.material}`} className="underline underline-offset-4 hover:text-terracota">
+                        {materialExiste.nome}
+                      </Link>
+                    ) : (
+                      t[chave]
+                    )}
+                  </dd>
                 </div>
               ))}
             </dl>
