@@ -14,7 +14,7 @@ type HeroProps = {
  */
 export function Hero({ videoSrc, posterSrc, legenda = "ensaio" }: HeroProps) {
   return (
-    <section aria-label="Abertura" className="relative h-[calc(100svh-5.5rem)] min-h-[420px] w-full overflow-hidden bg-agua">
+    <section aria-label="Abertura" className="relative h-[calc(100svh-5.5rem)] min-h-[420px] w-full overflow-hidden bg-black">
       {videoSrc ? (
         <video
           className="absolute inset-0 size-full object-cover motion-reduce:hidden"
@@ -30,7 +30,7 @@ export function Hero({ videoSrc, posterSrc, legenda = "ensaio" }: HeroProps) {
       ) : (
         <HeroAnimado />
       )}
-      <p className="absolute bottom-6 left-1/2 -translate-x-1/2 font-titulo text-xs uppercase tracking-[0.3em] text-tinta/70">
+      <p className="absolute bottom-6 left-1/2 -translate-x-1/2 font-titulo text-xs uppercase tracking-[0.3em] text-white/80">
         {legenda}
       </p>
       {!videoSrc && process.env.NODE_ENV !== "production" ? (

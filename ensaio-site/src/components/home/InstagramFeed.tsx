@@ -6,7 +6,7 @@ import { INSTAGRAM_PLACEHOLDER } from "@/lib/placeholders";
 export function InstagramFeed() {
   const { usuario, href, cores } = INSTAGRAM_PLACEHOLDER;
   return (
-    <section aria-label="Instagram" className="mx-auto max-w-[1400px] px-4 pb-16 md:px-8">
+    <section aria-label="Instagram" className="mx-auto max-w-[1400px] px-4 pb-16 pt-12 md:px-8">
       <a
         href={href}
         target="_blank"

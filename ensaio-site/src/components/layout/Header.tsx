@@ -23,7 +23,7 @@ export function Header() {
   const painelId = useId();
 
   return (
-    <header className="relative z-40 border-b border-tinta/10 bg-areia">
+    <header className="relative z-40 border-b border-tinta/10 bg-white">
       <div className="mx-auto grid max-w-[1400px] grid-cols-[1fr_auto_1fr] items-center px-4 py-5 md:px-8">
         <nav aria-label="Principal" className="hidden gap-6 text-sm uppercase tracking-widest md:flex">
           {NAV.map((i) => (

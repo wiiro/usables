@@ -19,11 +19,11 @@ const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMERO;
 
 export function Footer() {
   return (
-    <footer className="bg-tinta text-areia">
+    <footer className="border-t border-tinta/10 bg-white text-tinta">
       <div className="mx-auto grid max-w-[1400px] gap-10 px-4 py-14 md:grid-cols-4 md:px-8">
         <div>
-          <p className="font-titulo text-2xl font-bold lowercase text-areia">ensaio</p>
-          <p className="mt-3 text-sm text-areia/70">Lorem ipsum dolor sit amet.</p>
+          <p className="font-titulo text-2xl font-bold lowercase text-terracota">ensaio</p>
+          <p className="mt-3 text-sm text-tinta/70">Lorem ipsum dolor sit amet.</p>
         </div>
         <FooterLista titulo="Ensaio" itens={INSTITUCIONAL} />
         <FooterLista titulo="Políticas" itens={POLITICAS} />
@@ -31,7 +31,7 @@ export function Footer() {
           <h2 className="font-titulo text-sm uppercase tracking-widest">Siga</h2>
           <a
             href={INSTAGRAM_PLACEHOLDER.href}
-            className="mt-3 inline-flex items-center gap-2 text-sm hover:text-agua"
+            className="mt-3 inline-flex items-center gap-2 text-sm hover:text-terracota"
             rel="noopener noreferrer"
             target="_blank"
           >
@@ -39,7 +39,7 @@ export function Footer() {
           </a>
         </div>
       </div>
-      <div className="border-t border-areia/15 px-4 py-5 text-center text-xs text-areia/60">
+      <div className="border-t border-tinta/10 px-4 py-5 text-center text-xs text-tinta/60">
         © {new Date().getFullYear()} ensaio
       </div>
       {WHATSAPP ? (
@@ -61,9 +61,9 @@ function FooterLista({ titulo, itens }: { titulo: string; itens: { href: string;
   return (
     <nav aria-label={titulo}>
       <h2 className="font-titulo text-sm uppercase tracking-widest">{titulo}</h2>
-      <ul className="mt-3 space-y-2 text-sm text-areia/80">
+      <ul className="mt-3 space-y-2 text-sm text-tinta/80">
         {itens.map((i) => (
-          <li key={i.href}><Link href={i.href} className="hover:text-agua">{i.rotulo}</Link></li>
+          <li key={i.href}><Link href={i.href} className="hover:text-terracota">{i.rotulo}</Link></li>
         ))}
       </ul>
     </nav>
