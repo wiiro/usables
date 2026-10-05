@@ -21,15 +21,36 @@
 | Banco | PostgreSQL 17.11 nativo no Windows (serviço `postgresql-x64-17`), banco `ensaio_dev`, usuário `ensaio_app` com acesso só a ele |
 | Backend | Starter oficial do Medusa 2.21 em `backend/` (Turborepo), sem o storefront do starter |
 | Seed de dev | `seed-ensaio.ts` converte o demo europeu para Brasil/BRL com 6 joias fictícias. O `initial-data-seed` do starter continua no repositório e já foi aplicado ao banco |
+| Next.js | **16.3** (migrado do 15.5 para eliminar as vulnerabilidades do PostCSS embutido; `npm audit` com 0 vulnerabilidades) |
+| Testes | `vitest` (devDependency): 49 testes unitários de lógica pura e da camada do backend. `npm run smoke` confere 26 rotas. Sem E2E de navegador (Playwright baixa navegadores) |
+| Carrinho e checkout | Cookies httpOnly com id do carrinho e token do cliente; ações de servidor; validação própria em `src/lib/validacao.ts` (sem biblioteca extra) |
+| Pagamento (atual) | Provider de teste do Medusa (`pp_system_default`): o pedido é registrado sem cobrança. Mercado Pago **não** integrado |
+| Frete (atual) | "Envio provisório" fixo (R$ 25,00). Melhor Envio **não** integrado |
+| Conta | Cadastro, login, dados, endereços, pedidos, favoritos (em `metadata.wishlist` do cliente) |
+| LGPD no código | Rotas próprias no backend: exportar dados e excluir (anonimizar) a conta. Pedidos são mantidos (com e-mail e endereço da compra, por obrigação fiscal), desvinculados da conta |
+| Cookies | Banner com recusa equivalente; hoje só existem cookies essenciais |
+| Materioteca e conteúdo | Módulo próprio do Medusa (`conteudo`): materiais e conteúdo da home editáveis no painel (telas "Materioteca" e "Conteúdo do site") |
+| Textos jurídicos | Rascunhos marcados "para revisão jurídica", com colchetes `[ ]` a preencher |
+| Manifesto | Texto real fornecido pela marca (Notion). Demais textos continuam lorem ipsum |
 
 ## Pendências
 
-0. **Medusa**: o starter instalou `backend/node_modules` (cerca de 700 MB). Excluir `backend/node_modules` e `backend/apps/backend/.medusa` da sincronização do OneDrive, como já feito no front.
+**Dependem de você (contas, arquivos ou decisões):**
 
-1. **Wordmark**: extrair do PDF de marca (69 MB; falta ferramenta de extração de imagem) ou receber arquivo melhor.
-2. **Licença das fontes** Geometry Soft Pro e Telegrama.
-3. **Vulnerabilidades**: `npm audit` aponta 2 (1 alta, 1 moderada) no Next 15.5 via PostCSS. A correção sugerida é Next 16 (mudança incompatível). Avaliar a migração antes do deploy.
-4. **Página "Proposta de Valor"** do Notion está vazia.
-5. **Contas**: Mercado Pago, Melhor Envio, hospedagem e domínio ainda não existem.
-6. **Nota fiscal**: emissão fora do escopo da v1; definir com o contador.
-7. Rotas ainda inexistentes (retornam 404): `/loja`, `/materioteca`, `/processo`, pilares, `/conta`, `/carrinho`, políticas.
+1. **Mercado Pago** e **Melhor Envio**: criar contas e credenciais de teste; só então implemento os providers (código de pagamento não deve ser escrito sem poder testar).
+2. **Hospedagem, domínio e e-mail transacional** (Resend): contas ainda não existem. Ver `DEPLOY.md`.
+3. **Revisão jurídica** das políticas, termos, trocas e envio, e preenchimento dos dados da empresa (razão social, CNPJ, encarregado/DPO).
+4. **Wordmark** do logo (arquivo melhor ou extração do PDF de 69 MB, que exige ferramenta de imagem) e **licença das fontes** Geometry Soft Pro e Telegrama.
+5. **Textos da marca**: página "Proposta de Valor" do Notion está vazia; guia de cuidados e páginas dos pilares seguem em lorem ipsum.
+6. **Vídeo e fotos reais** (hoje: animação simulada e artes de placeholder). Enviáveis pelo painel em "Conteúdo do site" e "Materioteca".
+7. **Nota fiscal**: definir com o contador.
+8. Excluir `backend/node_modules` e `backend/apps/backend/.medusa` da sincronização do OneDrive.
+
+**Técnicas, antes de produção (ver `DEPLOY.md`, seção 6):**
+
+- Redis nos módulos do Medusa (event bus, locking, cache).
+- CSP estrita; HSTS no host.
+- Limite de tentativas de login (WAF/CDN).
+- Provedor de notificações (e-mails de pedido e redefinição de senha).
+- Testar os Dockerfiles (Docker não está instalado na máquina de desenvolvimento).
+- E2E de navegador (Playwright), se desejado.

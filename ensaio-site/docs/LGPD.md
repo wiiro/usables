@@ -15,13 +15,26 @@ Este documento é um guia técnico, **não** parecer jurídico. Políticas e ter
 
 ## Requisitos para as fases futuras
 
-- [ ] Política de privacidade, termos de uso, trocas e envio (rascunhos na fase 8, revisão jurídica)
-- [ ] Banner de cookies com recusa tão fácil quanto aceitar
-- [ ] Conta do cliente: acesso, correção, **exclusão**, exportação (portabilidade), revogação de consentimento
-- [ ] Prazo de retenção definido por tipo de dado
-- [ ] Logs só com identificadores, nunca CPF, e-mail, token ou dados de pagamento
-- [ ] Lista de operadores e terceiros (Mercado Pago, Melhor Envio, e-mail transacional, hospedagem)
-- [ ] Dados de produção nunca em dev/staging sem anonimização
-- [ ] Dados pessoais sensíveis/financeiros criptografados em repouso
-- [ ] Canal do encarregado (DPO) publicado
-- [ ] Backups com política de retenção compatível com pedidos de exclusão
+- [~] Política de privacidade, termos de uso, trocas e envio: **rascunhos escritos**, aguardam revisão jurídica e dados da empresa
+- [x] Banner de cookies com recusa tão fácil quanto aceitar (`BannerCookies`); preferências reabríveis no rodapé
+- [x] Conta do cliente: acesso e correção (Minha conta), **exclusão** (anonimização), exportação em JSON (portabilidade)
+- [~] Revogação de consentimento: cookies sim; newsletter ainda não existe
+- [~] Prazo de retenção definido por tipo de dado: constam como `[...]` na política, a decidir com o jurídico
+- [x] Logs só com identificadores e tipo de erro; nunca e-mail, CPF, telefone, senha ou token (conferido nas ações do servidor)
+- [~] Lista de operadores e terceiros: na política, com colchetes a confirmar
+- [ ] Dados de produção nunca em dev/staging sem anonimização (regra de processo; nenhum dado real foi usado)
+- [ ] Dados pessoais sensíveis/financeiros criptografados em repouso (cartão fica no Mercado Pago; confirmar criptografia do banco no provedor)
+- [ ] Canal do encarregado (DPO) publicado (precisa do nome e e-mail)
+- [ ] Backups com política de retenção compatível com pedidos de exclusão (definir no provedor)
+
+Legenda: [x] feito · [~] parcial · [ ] pendente.
+
+## Como o código atende cada direito
+
+| Direito (art. 18) | Onde |
+|---|---|
+| Acesso e portabilidade | `GET /store/customers/me/exportar` (backend) e o botão "Baixar meus dados" em `/conta` |
+| Correção | Formulário de dados e de endereços em `/conta` |
+| Eliminação | `POST /store/customers/me/excluir` (backend, exige `{"confirmar": true}`): remove credencial de login e endereços, anonimiza nome, e-mail e telefone, limpa favoritos. **Pedidos permanecem** com os dados da compra (e-mail e endereço de entrega), desvinculados da conta, por obrigação legal e fiscal (art. 16, I). Prazo de guarda a definir com o jurídico |
+| Informação sobre compartilhamento | Política de privacidade, seção 3 |
+| Revogação do consentimento | "Preferências de cookies" no rodapé |

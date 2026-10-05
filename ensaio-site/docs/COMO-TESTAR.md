@@ -1,6 +1,6 @@
 # Como rodar e testar
 
-Cobre o que existe hoje (fases 0 a 4): home, loja, produto, busca, Materioteca e páginas de pilar, lendo produtos do Medusa. Carrinho, checkout e conta ainda **não existem**.
+Cobre o site completo (fases 0 a 10, exceto pagamento real e frete real): home, loja, produto, busca, sacola, cupom, checkout, conta, favoritos, Materioteca, páginas institucionais e LGPD, lendo tudo do Medusa.
 
 Os comandos são para PowerShell. Dois terminais: um para o backend, outro para o site.
 
@@ -54,7 +54,30 @@ Abra http://localhost:3000.
 | 12 | Clicar nos 6 quadrados da home | Todos abrem uma página (Materioteca tem layout próprio, os outros são lorem ipsum) |
 | 13 | Rodapé: Instagram | Abre instagram.com em outra aba |
 
-Ainda dão 404 de propósito: `/conta`, `/carrinho`, `/cuidados`, `/contato`, `/envio`, `/termos-de-uso`, `/trocas-e-devolucoes`, `/politica-de-privacidade` (fases 5 a 8).
+
+
+## 3b. Roteiro: compra, conta, LGPD e conteúdo
+
+| # | O que fazer | Resultado esperado |
+|---|---|---|
+| 1 | Em uma peça, "Adicionar à sacola" | Mensagem "Adicionado"; o ícone da sacola no topo mostra o número |
+| 2 | `/carrinho`: mudar quantidade, remover, voltar | Totais atualizam; sacola vazia mostra "Sua sacola está vazia" |
+| 3 | Cupom `ENSAIO10` (10%) | Desconto aparece no resumo; código inválido mostra erro |
+| 4 | "Finalizar compra" sem preencher nada | Mensagem de erro em português, sem perder o que foi digitado |
+| 5 | Preencher o checkout, escolher envio, concluir | Página "Pedido recebido" com o número; frete de R$ 25,00 (provisório); pagamento é de teste |
+| 6 | `/conta/criar`: tentar sem marcar o aceite | Erro pedindo o aceite dos termos |
+| 7 | Criar conta completa | Cai em "Minha conta" com seu nome |
+| 8 | Favoritar uma peça; abrir `/conta/favoritos` | Peça aparece; "Remover dos favoritos" funciona |
+| 9 | Comprar logado; abrir `/conta/pedidos` | Pedido listado com o total certo; checkout vem preenchido com seus dados |
+| 10 | Minha conta: editar dados, adicionar e remover endereço | Mensagens de confirmação |
+| 11 | "Baixar meus dados (JSON)" | Baixa `meus-dados-ensaio.json` com cadastro, endereços e pedidos |
+| 12 | "Excluir minha conta" digitando `EXCLUIR` | Volta à home; login com a mesma senha deixa de funcionar |
+| 13 | Banner de cookies: "Só essenciais" | Banner some e não volta; "Preferências de cookies" no rodapé o reabre |
+| 14 | `/manifesto`, `/politica-de-privacidade`, `/termos-de-uso`, `/envio`, `/trocas-e-devolucoes`, `/cuidados`, `/contato` | Abrem; os jurídicos mostram o aviso "Rascunho para revisão jurídica" |
+| 15 | `/contato`: enviar o formulário | Sem Resend configurado, mostra "indisponível no momento" (esperado em desenvolvimento) |
+| 16 | `/materioteca` e um material | Materiais criados no painel aparecem; detalhe abre |
+| 17 | Painel > "Conteúdo do site": colocar usuário e imagens do Instagram, salvar | Em até 1 minuto o rodapé da home mostra os dados |
+| 18 | Painel > "Materioteca": criar, editar, ocultar e excluir | Reflete no site |
 
 ## 4. Testar o painel (Medusa Admin)
 
@@ -80,10 +103,11 @@ No diretório `ensaio-site/`:
 ```powershell
 npm run typecheck   # tipos
 npm run lint        # ESLint
+npm test            # testes unitários (vitest)
 npm run build       # build de produção (também roda lint e tipos); precisa do backend no ar para gerar a home com dados reais
 ```
 
-Ainda **não há testes unitários nem E2E** (fase 9).
+Testes automáticos: `npm test` (49 testes unitários) e, com o site e o backend no ar, `npm run smoke` (26 rotas). Ainda **não há E2E de navegador**.
 
 ## 7. Restaurar os dados de desenvolvimento
 

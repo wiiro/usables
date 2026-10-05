@@ -2,7 +2,7 @@
 
 E-commerce da **ensaio**, estúdio de design autoral de biomateriais (joias: brincos, earcuffs, pulseiras, colares).
 
-Status: **fases 0 a 4 concluídas** (home, backend Medusa com PostgreSQL, loja, produto, busca, Materioteca e pilares). Carrinho, checkout, conta e páginas institucionais ainda não existem. Ver [docs/PLANEJAMENTO.md](docs/PLANEJAMENTO.md).
+Status: **fases 0 a 10 entregues no código e na documentação**, exceto o que depende de contas externas: **pagamento (Mercado Pago), frete (Melhor Envio) e publicação** ainda não existem. Hoje o checkout usa pagamento de teste e frete fixo. Ver [docs/PLANEJAMENTO.md](docs/PLANEJAMENTO.md) e as pendências em [docs/DECISOES.md](docs/DECISOES.md).
 
 ## Documentação
 
@@ -13,6 +13,8 @@ Status: **fases 0 a 4 concluídas** (home, backend Medusa com PostgreSQL, loja, 
 | [docs/PLANEJAMENTO.md](docs/PLANEJAMENTO.md) | Arquitetura, páginas, fases e riscos |
 | [docs/DECISOES.md](docs/DECISOES.md) | Decisões tomadas e pendências |
 | [docs/DESIGN.md](docs/DESIGN.md) | Paleta, tipografia, layout |
+| [docs/OPERACAO.md](docs/OPERACAO.md) | Uso do painel (produtos, pedidos, Materioteca, conteúdo) e rotina de manutenção |
+| [docs/DEPLOY.md](docs/DEPLOY.md) | Publicação, variáveis, rollback, backup, pendências de produção |
 | [docs/LGPD.md](docs/LGPD.md) | Checklist de privacidade |
 
 ## Como o site lê os dados
@@ -37,6 +39,8 @@ npm run dev                  # http://localhost:3000
 | `npm run build` | Build de produção (roda lint e checagem de tipos) |
 | `npm run typecheck` | Só checagem de tipos |
 | `npm run lint` | ESLint |
+| `npm test` | Testes unitários (vitest) |
+| `npm run smoke` | Teste de fumaça das rotas (site e backend no ar) |
 
 ## Backend (Medusa v2)
 

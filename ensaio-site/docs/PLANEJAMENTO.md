@@ -38,15 +38,15 @@ Home · Loja (categorias: Brincos, Earcuffs, Colares, Pulseiras, Joias) · Produ
 | 0 | Repositório, README, convenções | Feito |
 | 1 | Design tokens e fontes substitutas | Feito (fontes oficiais pendentes) |
 | 2 | Home com placeholders | Feito |
-| 3 | Backend Medusa, produtos de exemplo, painel pt-BR | Feito (backend, banco, seed e admin local); telas extras do painel (home, Materioteca) pendentes |
-| 4 | Loja, produto, busca, Materioteca | Feito (Materioteca e páginas de pilar são placeholders; módulo de materiais no Medusa fica para depois) |
-| 5 | Carrinho, checkout, Mercado Pago, Melhor Envio | |
-| 6 | Conta, lista de desejos, cupons | |
-| 7 | Institucionais, guia de cuidados, contato, WhatsApp | |
-| 8 | LGPD: políticas, cookies, exportar/excluir dados | |
-| 9 | Acessibilidade, performance, SEO, testes E2E | |
-| 10 | Deploy, domínio, monitoramento, runbook | |
+| 3 | Backend Medusa, produtos de exemplo, painel pt-BR | Feito |
+| 4 | Loja, produto, busca, Materioteca | Feito (Materioteca lê do painel) |
+| 5 | Carrinho, checkout, pagamento, frete | **Parcial**: carrinho, cupom, checkout e pedido funcionam (pagamento de teste, frete fixo). Mercado Pago e Melhor Envio aguardam credenciais |
+| 6 | Conta, lista de desejos, cupons | Feito |
+| 7 | Institucionais, guia de cuidados, contato, WhatsApp | Feito (textos em lorem ipsum, exceto o Manifesto; contato depende do Resend) |
+| 8 | LGPD: políticas, cookies, exportar/excluir dados | Feito no código; textos jurídicos são rascunhos |
+| 9 | Acessibilidade, performance, SEO, testes | Feito (SEO, cabeçalhos de segurança, 49 testes, smoke). Sem E2E de navegador |
+| 10 | Deploy, domínio, monitoramento, runbook | Documentação e Dockerfiles prontos; **nada publicado** (faltam contas) |
 
 ## Riscos
 
-Licença de fontes · vídeo pesado no mobile · operação do Medusa (backup, atualização, segurança) · nota fiscal fora do escopo · vulnerabilidades do Next 15 (ver DECISOES) · escopo (DIY e marketplace só como arquitetura).
+Licença de fontes · vídeo pesado no mobile · operação do Medusa (backup, atualização, segurança) · nota fiscal fora do escopo · escopo (DIY e marketplace só como arquitetura).
