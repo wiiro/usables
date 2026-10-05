@@ -12,5 +12,9 @@ module.exports = defineConfig({
       jwtSecret: process.env.JWT_SECRET,
       cookieSecret: process.env.COOKIE_SECRET,
     }
-  }
+  },
+  modules: [
+    // ensaio: Materioteca e conteúdo editável do site
+    { resolve: "./src/modules/conteudo" },
+  ],
 })

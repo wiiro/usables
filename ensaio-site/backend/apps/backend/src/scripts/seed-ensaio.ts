@@ -1,4 +1,6 @@
 import type { ExecArgs } from "@medusajs/framework/types";
+import { CONTEUDO_MODULE } from "../modules/conteudo";
+import type ConteudoModuleService from "../modules/conteudo/service";
 import {
   ContainerRegistrationKeys,
   ModuleRegistrationName,
@@ -185,6 +187,23 @@ export default async function seedEnsaio({ container }: ExecArgs) {
         })),
       },
     });
+  }
+
+  // 5. Materioteca de exemplo (só se estiver vazia). Textos são lorem ipsum.
+  const conteudo: ConteudoModuleService = container.resolve(CONTEUDO_MODULE);
+  const jaTemMateriais = (await conteudo.listMaterials({})).length > 0;
+  if (!jaTemMateriais) {
+    await conteudo.createMaterials(
+      [1, 2, 3, 4].map((n) => ({
+        nome: `Material Exemplo 0${n}`,
+        slug: `material-exemplo-0${n}`,
+        descricao: "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        ingredientes: "Lorem ipsum",
+        origem: "Lorem ipsum",
+        ordem: n,
+      })),
+    );
+    logger.info("Materioteca de exemplo criada (4 materiais).");
   }
   logger.info(`Seed ensaio concluído: ${aCriar.length} produtos criados.`);
 }
