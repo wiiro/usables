@@ -1,0 +1,69 @@
+@import "tailwindcss";
+
+/* Tokens da marca (docs/DESIGN.md). Cores do PDF "marca-pronta-versao1". */
+@theme {
+  --color-areia: #efe5d8;
+  --color-gelo: #edf4f3;
+  --color-agua: #c6dbd8;
+  --color-terracota: #933815;
+  --color-terracota-vivo: #a03100;
+  --color-ouro: #ba9600;
+  --color-tinta: #2a1b14;
+
+  --font-corpo: var(--font-ubuntu-mono), ui-monospace, monospace;
+  --font-titulo: var(--font-space-mono), ui-monospace, monospace;
+}
+
+html {
+  background: var(--color-areia);
+  color: var(--color-tinta);
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-corpo);
+  font-size: 1rem;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-terracota);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Animação da abertura simulada (HeroAnimado). Loop contínuo e lento. */
+.ens-flutua, .ens-reflexo, .ens-gira, .ens-pulsa, .ens-brilho {
+  transform-box: fill-box;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in-out;
+}
+.ens-flutua { animation-name: ens-flutua; animation-duration: 9s; animation-direction: alternate; }
+.ens-reflexo { animation-name: ens-reflexo; animation-duration: 9s; animation-direction: alternate; transform-origin: center; }
+.ens-gira { animation-name: ens-gira; animation-duration: 40s; animation-timing-function: linear; transform-box: view-box; }
+.ens-pulsa { animation-name: ens-pulsa; animation-duration: 6s; animation-direction: alternate; transform-origin: center; }
+.ens-brilho { animation-name: ens-brilho; animation-duration: 8s; }
+
+@keyframes ens-flutua { from { transform: translateY(-14px); } to { transform: translateY(14px); } }
+@keyframes ens-reflexo { from { transform: scaleY(1.08); opacity: 0.4; } to { transform: scaleY(0.9); opacity: 0.25; } }
+@keyframes ens-gira { to { transform: rotate(360deg); } }
+@keyframes ens-pulsa { from { transform: scale(0.85); opacity: 0.7; } to { transform: scale(1.2); opacity: 1; } }
+@keyframes ens-brilho {
+  0%, 100% { transform: translateX(-40px); opacity: 0; }
+  50% { transform: translateX(40px); opacity: 0.6; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ens-flutua, .ens-reflexo, .ens-gira, .ens-pulsa, .ens-brilho { animation: none !important; }
+}
+
+.sem-barra { scrollbar-width: none; }
+.sem-barra::-webkit-scrollbar { display: none; }
