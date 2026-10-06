@@ -28,7 +28,7 @@ Home · Loja (categorias: Brincos, Earcuffs, Colares, Pulseiras, Joias) · Produ
 
 - Produto: material (liga à Materioteca), origem, processo, cuidados, prazo de produção, número da edição (se limitada).
 - Materioteca: nome, descrição, ingredientes, origem, fotos, produtos relacionados.
-- Conteúdo editável: textos e imagens da home, pilares, Instagram, banners.
+- Conteúdo editável: vídeo da abertura e link do Instagram.
 - Futuro (só preparado): personalização DIY por metadados na linha do pedido; canais de venda para marketplace.
 
 ## Fases

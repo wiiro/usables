@@ -1,5 +1,4 @@
 import { Hero } from "@/components/home/Hero";
-import { InstagramFeed } from "@/components/home/InstagramFeed";
 import { PillarsGrid } from "@/components/home/PillarsGrid";
 import { ProductStrip } from "@/components/home/ProductStrip";
 import { listarProdutos } from "@/lib/catalogo";
@@ -24,7 +23,7 @@ async function conteudoDaHome(): Promise<ConteudoSite> {
     return await obterConteudoSite();
   } catch (erro) {
     console.error("[home] falha ao carregar o conteúdo editável, usando o padrão:", erro);
-    return { instagramImagens: [] };
+    return {};
   }
 }
 
@@ -35,7 +34,6 @@ export default async function Home() {
       <Hero videoSrc={conteudo.heroVideoUrl} posterSrc={conteudo.heroPosterUrl} />
       <ProductStrip produtos={produtos} />
       <PillarsGrid pilares={PILARES} />
-      <InstagramFeed usuario={conteudo.instagramUsuario} href={conteudo.instagramUrl} imagens={conteudo.instagramImagens} />
     </>
   );
 }

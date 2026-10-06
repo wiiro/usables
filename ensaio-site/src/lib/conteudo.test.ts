@@ -25,12 +25,11 @@ describe("mapearConteudo", () => {
       hero_poster_url: "javascript:x",
       instagram_usuario: "  @ensaio  ",
       instagram_url: "https://instagram.com/ensaio",
-      instagram_imagens: ["https://x.com/1.jpg", "javascript:y", 5, "/local.jpg"],
     });
     expect(c.heroVideoUrl).toBe("https://x.com/v.mp4");
     expect(c.heroPosterUrl).toBeUndefined();
     expect(c.instagramUsuario).toBe("@ensaio");
-    expect(c.instagramImagens).toEqual(["https://x.com/1.jpg", "/local.jpg"]);
+    expect(c.instagramUrl).toBe("https://instagram.com/ensaio");
   });
   it("objeto vazio resulta em padrões seguros", () => {
     expect(mapearConteudo({})).toEqual({
@@ -38,11 +37,6 @@ describe("mapearConteudo", () => {
       heroPosterUrl: undefined,
       instagramUsuario: undefined,
       instagramUrl: undefined,
-      instagramImagens: [],
     });
-  });
-  it("limita a 12 imagens", () => {
-    const muitas = Array.from({ length: 30 }, (_, i) => `https://x.com/${i}.jpg`);
-    expect(mapearConteudo({ instagram_imagens: muitas }).instagramImagens).toHaveLength(12);
   });
 });

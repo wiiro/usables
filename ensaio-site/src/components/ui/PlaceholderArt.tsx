@@ -30,10 +30,13 @@ function aleatorio(semente: number): () => number {
   };
 }
 
-type Ctx = { rnd: () => number };
+// Cada arte recria o gerador a partir da semente: assim a renderização é pura
+// (React pode renderizar duas vezes sem que servidor e navegador divirjam).
+type Ctx = { semente: number };
 
 // 0: Júpiter (faixas onduladas ocre, mancha rubra e luas escuras)
-function Jupiter({ rnd }: Ctx) {
+function Jupiter({ semente }: Ctx) {
+  const rnd = aleatorio(semente);
   const cores = ["#ecd9b8", "#c98a52", "#f3e8d2", "#a8643a", "#dcae7c", "#8c5232", "#e6c79a"];
   let y = -10;
   const faixas: React.ReactNode[] = [];
@@ -63,7 +66,8 @@ function Jupiter({ rnd }: Ctx) {
 }
 
 // 1: Lua (superfície cinza-azulada com crateras)
-function Lua({ rnd }: Ctx) {
+function Lua({ semente }: Ctx) {
+  const rnd = aleatorio(semente);
   const crateras = Array.from({ length: 26 }, (_, i) => {
     const r = 6 + rnd() * rnd() * 46;
     return { i, x: rnd() * 400, y: rnd() * 500, r };
@@ -140,7 +144,8 @@ function Ondas() {
 }
 
 // 4: estrela de oito pontas sobre fundo escuro
-function Estrela({ rnd }: Ctx) {
+function Estrela({ semente }: Ctx) {
+  const rnd = aleatorio(semente);
   const pontos = (cx: number, cy: number, longo: number, curto: number) =>
     Array.from({ length: 16 }, (_, i) => {
       const ang = (i * Math.PI) / 8 - Math.PI / 2;
@@ -192,12 +197,14 @@ type Props = {
   seed: string;
   /** Força a composição (0 a 5); sem isso, vem do seed. */
   variante?: number;
+  /** Usa a composição "oposta" (3 posições adiante: Júpiter vira ondas, Lua vira estrela...). Para o hover dos cards. */
+  alternativa?: boolean;
   className?: string;
 };
 
-export function PlaceholderArt({ seed, variante, className = "" }: Props) {
+export function PlaceholderArt({ seed, variante, alternativa = false, className = "" }: Props) {
   const h = hash(seed);
-  const indice = variante ?? h >>> 8;
+  const indice = (variante ?? h >>> 8) + (alternativa ? 3 : 0);
   const composicao = COMPOSICOES[indice % COMPOSICOES.length] ?? COMPOSICOES[0]!;
 
   return (
@@ -208,7 +215,7 @@ export function PlaceholderArt({ seed, variante, className = "" }: Props) {
       aria-hidden="true"
       focusable="false"
     >
-      {composicao({ rnd: aleatorio(h) })}
+      {composicao({ semente: h })}
     </svg>
   );
 }

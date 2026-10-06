@@ -11,6 +11,8 @@ export type ProdutoResumo = {
   href: string;
   cor: string;
   thumbnail?: string | null;
+  /** Segunda imagem mostrada ao passar o mouse (cards). Sem ela, o card só dá zoom. */
+  imagemHover?: string | null;
   /** Slug do material (metadata.material no Medusa), para ligar à Materioteca. */
   material?: string;
 };
@@ -39,5 +41,4 @@ export const PILARES: Pilar[] = [
 export const INSTAGRAM_PLACEHOLDER = {
   usuario: "@ensaio",
   href: "https://www.instagram.com/",
-  cores: ["var(--color-agua)", "#d9c7b0", "var(--color-gelo)", "var(--color-terracota)", "var(--color-agua)", "#d9c7b0"],
 };

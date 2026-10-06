@@ -39,7 +39,6 @@ export const ConteudoSchema = z
     hero_poster_url: urlSegura,
     instagram_usuario: z.string().trim().max(60),
     instagram_url: urlSegura,
-    instagram_imagens: z.array(urlSegura).max(12),
   })
   .partial()
   .strict()

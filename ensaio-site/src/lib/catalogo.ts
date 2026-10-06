@@ -10,6 +10,7 @@ type ProdutoApi = {
   handle: string;
   description: string | null;
   thumbnail: string | null;
+  images?: { url: string }[];
   metadata: Record<string, unknown> | null;
   categories?: CategoriaApi[];
   variants?: VarianteApi[];
@@ -33,7 +34,7 @@ export type ProdutoDetalhe = ProdutoResumo & {
   variantes: VarianteResumo[];
 };
 
-const CAMPOS = "id,title,handle,description,thumbnail,metadata,*categories,*variants,*variants.calculated_price";
+const CAMPOS = "id,title,handle,description,thumbnail,metadata,*categories,*images,*variants,*variants.calculated_price";
 const CORES = ["var(--color-agua)", "var(--color-gelo)", "#d9c7b0"];
 
 let regiaoEmCache: Promise<string> | undefined;
@@ -71,6 +72,17 @@ function texto(v: unknown): string | undefined {
   return typeof v === "string" && v.trim() ? v : undefined;
 }
 
+/** Imagem principal: a miniatura ou, na falta dela, a primeira foto. */
+export function imagemPrincipal(p: Pick<ProdutoApi, "thumbnail" | "images">): string | null {
+  return p.thumbnail ?? p.images?.[0]?.url ?? null;
+}
+
+/** Primeira imagem diferente da principal (usada no hover do card); undefined se não houver. */
+export function segundaImagem(p: Pick<ProdutoApi, "thumbnail" | "images">): string | undefined {
+  const principal = imagemPrincipal(p);
+  return (p.images ?? []).map((i) => i.url).find((url) => url && url !== principal);
+}
+
 function paraResumo(p: ProdutoApi): ProdutoResumo {
   return {
     id: p.id,
@@ -79,7 +91,8 @@ function paraResumo(p: ProdutoApi): ProdutoResumo {
     precoCentavos: precoEmCentavos(p.variants),
     href: `/loja/${p.handle}`,
     cor: corDe(p.handle),
-    thumbnail: p.thumbnail,
+    thumbnail: imagemPrincipal(p),
+    imagemHover: segundaImagem(p),
     material: texto(p.metadata?.material),
   };
 }

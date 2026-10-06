@@ -3,10 +3,12 @@ import { PlaceholderArt } from "@/components/ui/PlaceholderArt";
 import type { Pilar } from "@/lib/placeholders";
 
 /**
- * Colagem assimétrica, sem espaço entre os quadrados (como nas referências).
+ * Colagem assimétrica com espaço entre os quadrados e margens laterais.
  * Desktop: grade de 12 colunas, 2 linhas de alturas diferentes, larguras
  * variando por quadrado. Mobile: 2 colunas. Os spans são literais para o
  * Tailwind enxergá-los; a ordem segue a lista de pilares (6 itens).
+ * Para voltar a quadrados iguais: trocar o LAYOUT por "aspect-square" e a
+ * grade por `md:grid-cols-3`.
  */
 const LAYOUT = [
   "col-span-2 aspect-[2/1] md:col-span-5 md:aspect-auto",
@@ -19,9 +21,9 @@ const LAYOUT = [
 
 export function PillarsGrid({ pilares }: { pilares: Pilar[] }) {
   return (
-    <section aria-label="Pilares da marca" className="w-full">
-      <h2 className="sr-only">Ensaio</h2>
-      <ul className="grid grid-cols-2 gap-0 md:grid-cols-12 md:grid-rows-[clamp(240px,36vw,540px)_clamp(200px,28vw,430px)]">
+    <section aria-label="Pilares da marca" className="mx-auto max-w-[1400px] px-4 pb-14 md:px-8">
+      <h2 className="mb-6 font-titulo text-xl font-bold uppercase tracking-widest">Ensaio</h2>
+      <ul className="grid grid-cols-2 gap-3 md:grid-cols-12 md:grid-rows-[clamp(220px,30vw,460px)_clamp(190px,24vw,380px)]">
         {pilares.map((p, i) => (
           <li key={p.slug} className={LAYOUT[i % LAYOUT.length]}>
             <Link href={`/${p.slug}`} className="group relative block size-full overflow-hidden">

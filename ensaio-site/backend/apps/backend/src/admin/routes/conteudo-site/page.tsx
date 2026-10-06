@@ -1,6 +1,6 @@
 import { defineRouteConfig } from "@medusajs/admin-sdk"
 import { Newspaper } from "@medusajs/icons"
-import { Button, Container, Heading, Input, Label, Text, Textarea, Toaster, toast } from "@medusajs/ui"
+import { Button, Container, Heading, Input, Label, Text, Toaster, toast } from "@medusajs/ui"
 import { useEffect, useState } from "react"
 import { api } from "../../lib/api"
 import { CampoArquivo } from "../../lib/CampoArquivo"
@@ -10,10 +10,9 @@ type Form = {
   hero_poster_url: string
   instagram_usuario: string
   instagram_url: string
-  instagram_imagens: string
 }
 
-const VAZIO: Form = { hero_video_url: "", hero_poster_url: "", instagram_usuario: "", instagram_url: "", instagram_imagens: "" }
+const VAZIO: Form = { hero_video_url: "", hero_poster_url: "", instagram_usuario: "", instagram_url: "" }
 
 const ConteudoSitePage = () => {
   const [form, setForm] = useState<Form>(VAZIO)
@@ -28,7 +27,6 @@ const ConteudoSitePage = () => {
           hero_poster_url: String(conteudo.hero_poster_url ?? ""),
           instagram_usuario: String(conteudo.instagram_usuario ?? ""),
           instagram_url: String(conteudo.instagram_url ?? ""),
-          instagram_imagens: Array.isArray(conteudo.instagram_imagens) ? conteudo.instagram_imagens.join("\n") : "",
         }),
       )
       .catch((erro: Error) => toast.error("Não foi possível carregar", { description: erro.message }))
@@ -45,7 +43,6 @@ const ConteudoSitePage = () => {
           hero_poster_url: form.hero_poster_url.trim(),
           instagram_usuario: form.instagram_usuario.trim(),
           instagram_url: form.instagram_url.trim(),
-          instagram_imagens: form.instagram_imagens.split("\n").map((l) => l.trim()).filter(Boolean),
         }),
       })
       toast.success("Conteúdo salvo", { description: "O site atualiza em até 1 minuto." })
@@ -64,7 +61,7 @@ const ConteudoSitePage = () => {
       <Toaster />
       <div className="px-6 py-4">
         <Heading>Conteúdo do site</Heading>
-        <Text size="small" className="text-ui-fg-subtle">Abertura da home e Instagram do rodapé. Deixe em branco para usar o padrão.</Text>
+        <Text size="small" className="text-ui-fg-subtle">Vídeo da abertura da home e link do Instagram no rodapé. Deixe em branco para usar o padrão.</Text>
       </div>
       {carregando ? (
         <div className="px-6 py-4"><Text>Carregando...</Text></div>
@@ -95,13 +92,6 @@ const ConteudoSitePage = () => {
             <div className="flex flex-col gap-y-1">
               <Label>Endereço do perfil</Label>
               <Input value={form.instagram_url} onChange={campo("instagram_url")} placeholder="https://www.instagram.com/seuperfil" />
-            </div>
-            <div className="flex flex-col gap-y-1">
-              <Label>Endereços das imagens (uma por linha, até 12)</Label>
-              <Textarea rows={6} value={form.instagram_imagens} onChange={campo("instagram_imagens")} />
-              <Text size="small" className="text-ui-fg-subtle">
-                Para enviar uma foto: abra a Materioteca, use &quot;Enviar arquivo&quot;, copie o endereço gerado e cole aqui.
-              </Text>
             </div>
           </div>
           <div><Button isLoading={salvando} onClick={() => void salvar()}>Salvar</Button></div>

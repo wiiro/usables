@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { BotaoPreferenciasCookies } from "@/components/privacidade/BannerCookies";
+import { obterConteudoSite, type ConteudoSite } from "@/lib/conteudo";
 import { INSTAGRAM_PLACEHOLDER } from "@/lib/placeholders";
 import { IconeInstagram, IconeWhatsapp } from "./Icons";
 
@@ -18,12 +19,16 @@ const POLITICAS = [
 // Número do WhatsApp vem de variável de ambiente; sem ela o botão não aparece.
 const WHATSAPP = process.env.NEXT_PUBLIC_WHATSAPP_NUMERO;
 
-export function Footer() {
+export async function Footer() {
+  const conteudo = await obterConteudoSite().catch(() => ({}) as ConteudoSite);
+  const usuario = conteudo.instagramUsuario ?? INSTAGRAM_PLACEHOLDER.usuario;
+  const perfil = conteudo.instagramUrl ?? INSTAGRAM_PLACEHOLDER.href;
   return (
     <footer className="border-t border-tinta/10 bg-white text-tinta">
       <div className="mx-auto grid max-w-[1400px] gap-10 px-4 py-14 md:grid-cols-4 md:px-8">
         <div>
-          <p className="font-titulo text-2xl font-bold lowercase text-terracota">ensaio</p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img src="/brand/wordmark.png" alt="ensaio" width={468} height={106} className="h-7 w-auto" />
           <p className="mt-3 text-sm text-tinta/70">Lorem ipsum dolor sit amet.</p>
         </div>
         <FooterLista titulo="Ensaio" itens={INSTITUCIONAL} />
@@ -31,12 +36,12 @@ export function Footer() {
         <div>
           <h2 className="font-titulo text-sm uppercase tracking-widest">Siga</h2>
           <a
-            href={INSTAGRAM_PLACEHOLDER.href}
+            href={perfil}
             className="mt-3 inline-flex items-center gap-2 text-sm hover:text-terracota"
             rel="noopener noreferrer"
             target="_blank"
           >
-            <IconeInstagram /> {INSTAGRAM_PLACEHOLDER.usuario}
+            <IconeInstagram /> {usuario}
           </a>
         </div>
       </div>

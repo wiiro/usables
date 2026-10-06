@@ -18,7 +18,6 @@ export type ConteudoSite = {
   heroPosterUrl?: string;
   instagramUsuario?: string;
   instagramUrl?: string;
-  instagramImagens: string[];
 };
 
 /** Aceita só http(s) absoluta ou caminho do próprio site; qualquer outra coisa é descartada. */
@@ -33,13 +32,11 @@ function texto(valor: unknown, max = 100): string | undefined {
 }
 
 export function mapearConteudo(bruto: Record<string, unknown>): ConteudoSite {
-  const imagens = Array.isArray(bruto.instagram_imagens) ? bruto.instagram_imagens : [];
   return {
     heroVideoUrl: urlSegura(bruto.hero_video_url),
     heroPosterUrl: urlSegura(bruto.hero_poster_url),
     instagramUsuario: texto(bruto.instagram_usuario, 60),
     instagramUrl: urlSegura(bruto.instagram_url),
-    instagramImagens: imagens.map(urlSegura).filter((u): u is string => Boolean(u)).slice(0, 12),
   };
 }
 

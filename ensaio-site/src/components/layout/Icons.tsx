@@ -22,3 +22,6 @@ export const IconeInstagram = ({ className }: P) => (
 export const IconeWhatsapp = ({ className }: P) => (
   <svg {...base} className={className}><path d="M4 20l1.2-4A8 8 0 1 1 8 18.8L4 20Z" /><path d="M9.5 9c.3 2 2.5 4.2 5 5l1-1.3-1.8-1-.8.7c-.8-.3-1.6-1.1-2-2l.7-.8-1-1.8L9.5 9Z" /></svg>
 );
+export const IconeFechar = ({ className }: P) => (
+  <svg {...base} className={className}><path d="M6 6l12 12M18 6 6 18" /></svg>
+);

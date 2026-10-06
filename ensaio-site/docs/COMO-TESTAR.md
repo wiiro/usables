@@ -40,10 +40,13 @@ Abra http://localhost:3000.
 
 | # | O que fazer | Resultado esperado |
 |---|---|---|
-| 1 | Abrir `/` | Header com logo "ensaio" centralizado, abertura em gradiente, faixa de peças, grade de 6 pilares, Instagram, rodapé |
-| 2 | Passar o mouse sobre o logo (desktop) | Campo de busca aparece abaixo do logo; some ao tirar o mouse |
+| 1 | Abrir `/` | Header com logo "ensaio" centralizado, abertura animada, faixa de peças, grade de 6 pilares, rodapé |
+| 2 | Passar o mouse sobre o logo ou sobre a lupa (canto direito) | Barra de busca de **largura total** desce sob o cabeçalho, com o campo já focado |
+| 2a | Digitar, tirar o mouse; depois apertar Esc ou clicar no X | Com texto digitado a barra fica aberta; Esc e X fecham e limpam. Sem texto, fecha ao tirar o mouse |
+| 2b | Rolar a página para baixo | O cabeçalho (logo e links) permanece fixo no topo |
+| 2c | Passar o mouse sobre uma peça (home ou loja) | A imagem dá zoom e troca por outra bem diferente |
 | 3 | Navegar com Tab até o logo | A busca também aparece (acessibilidade) |
-| 4 | Reduzir a janela para largura de celular (ou F12 > modo dispositivo) | Lupa à esquerda abre e fecha a busca; menu lateral some |
+| 4 | Reduzir a janela para largura de celular (ou F12 > modo dispositivo) | Os links do topo somem; a lupa (à direita) abre e fecha a barra de busca ao toque |
 | 5 | Faixa de peças: setas ou arrastar | Rola de lado, com encaixe (snap) |
 | 6 | Clicar em "Ver tudo" ou `/loja` | Grade com as 6 peças e preços em R$ (ex.: R$ 189,00) |
 | 7 | Clicar em "Brincos" | Só as 2 peças da categoria; URL `?categoria=brincos` |
@@ -76,7 +79,7 @@ Abra http://localhost:3000.
 | 14 | `/manifesto`, `/politica-de-privacidade`, `/termos-de-uso`, `/envio`, `/trocas-e-devolucoes`, `/cuidados`, `/contato` | Abrem; os jurídicos mostram o aviso "Rascunho para revisão jurídica" |
 | 15 | `/contato`: enviar o formulário | Sem Resend configurado, mostra "indisponível no momento" (esperado em desenvolvimento) |
 | 16 | `/materioteca` e um material | Materiais criados no painel aparecem; detalhe abre |
-| 17 | Painel > "Conteúdo do site": colocar usuário e imagens do Instagram, salvar | Em até 1 minuto o rodapé da home mostra os dados |
+| 17 | Painel > "Conteúdo do site": colocar o usuário e o endereço do Instagram, salvar | Em até 1 minuto o link do rodapé usa os dados |
 | 18 | Painel > "Materioteca": criar, editar, ocultar e excluir | Reflete no site |
 
 ## 4. Testar o painel (Medusa Admin)

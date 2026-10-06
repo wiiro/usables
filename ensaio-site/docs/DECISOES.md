@@ -11,13 +11,13 @@
 | Front | Next.js (App Router) + TypeScript strict + Tailwind v4 |
 | Painel | Medusa Admin em pt-BR + telas extras para home e Materioteca (fase 3) |
 | v1 | Conta, lista de desejos, cupons, guia de cuidados, contato, template de WhatsApp |
-| Instagram | Manual (sem API) |
+| Instagram | Só o link no rodapé (a faixa de fotos da home foi removida) |
 | Abertura | Vídeo mudo em loop com fallback estático. Ainda sem vídeo: usa gradiente |
-| Busca | Hover/foco no logo (desktop); lupa (mobile). Header não fixo, logo centralizado |
+| Busca | Barra de largura total sob o cabeçalho; abre no hover do logo ou da lupa (desktop) e ao toque na lupa (mobile). Header **fixo** (acompanha a rolagem), logo centralizado com os links ao redor |
 | Textos | Lorem ipsum nos textos de marca. Persona de referência: **Ana** |
 | Arquitetura futura | Preparada para personalização DIY e marketplace; não implementada |
 | Fontes | Substitutas livres (Space Mono, Ubuntu Mono) até confirmar licença de Geometry Soft Pro e Telegrama |
-| Logo | Símbolo em PNG (`assets/brand/simbolo.png`). Wordmark provisório em texto no header; trocar pelo logo extraído do PDF e depois pelo oficial |
+| Logo | Símbolo e **wordmark oficial** em PNG transparente (`public/brand/simbolo.png` e `wordmark.png`, originais em `assets/brand/`). Se vier uma versão vetorial (SVG), trocar em `Header.tsx` e `Footer.tsx` |
 | Banco | PostgreSQL 17.11 nativo no Windows (serviço `postgresql-x64-17`), banco `ensaio_dev`, usuário `ensaio_app` com acesso só a ele |
 | Backend | Starter oficial do Medusa 2.21 em `backend/` (Turborepo), sem o storefront do starter |
 | Seed de dev | `seed-ensaio.ts` converte o demo europeu para Brasil/BRL com 6 joias fictícias. O `initial-data-seed` do starter continua no repositório e já foi aplicado ao banco |

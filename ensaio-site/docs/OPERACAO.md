@@ -26,7 +26,7 @@ Guia para quem administra a loja (cadastro de produtos, pedidos) e para quem man
 
 ### Conteúdo do site (menu "Conteúdo do site")
 - **Vídeo da abertura**: envie um mp4 curto, sem áudio (até uns 5 MB). Sem vídeo, o site mostra a animação padrão. Capa opcional.
-- **Instagram**: usuário, endereço do perfil e as imagens (uma por linha, até 12). O site **não** busca o Instagram sozinho; você cola as imagens.
+- **Instagram**: usuário e endereço do perfil, usados no link do rodapé. (O site não mostra mais fotos do Instagram na home.)
 - Salvar e esperar até 1 minuto.
 - Em desenvolvimento, arquivos enviados ficam no disco do backend. **Em produção é preciso configurar armazenamento (S3 ou similar)**, senão os arquivos se perdem a cada publicação. Ver `DEPLOY.md`.
 

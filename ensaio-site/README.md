@@ -69,8 +69,8 @@ npx medusa develop                             # API em :9000, painel em http://
 
 ```
 src/app/                 Rotas (App Router) e layout global
-src/components/layout/   Header (logo centralizado, busca no hover), Footer, ícones
-src/components/home/     Seções da home: Hero, ProductStrip, PillarsGrid, InstagramFeed
+src/components/layout/   Header fixo (logo centralizado, links ao redor, barra de busca de largura total), Footer, ícones
+src/components/home/     Seções da home: Hero, ProductStrip, PillarsGrid
 src/lib/                 Utilitários e dados placeholder (placeholders.ts)
 public/brand/            Ativos da marca servidos pelo site
 assets/brand/            Ativos originais da marca (fonte)

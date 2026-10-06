@@ -14,7 +14,7 @@ type HeroProps = {
  */
 export function Hero({ videoSrc, posterSrc, legenda = "ensaio" }: HeroProps) {
   return (
-    <section aria-label="Abertura" className="relative h-[calc(100svh-5.5rem)] min-h-[420px] w-full overflow-hidden bg-black">
+    <section aria-label="Abertura" className="relative h-[calc(100svh-5rem)] min-h-[420px] w-full overflow-hidden bg-black">
       {videoSrc ? (
         <video
           className="absolute inset-0 size-full object-cover motion-reduce:hidden"
